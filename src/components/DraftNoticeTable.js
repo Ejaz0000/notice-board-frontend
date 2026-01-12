@@ -104,11 +104,11 @@ export default function DraftNoticeTable({ notices: initialNotices = [] }) {
         </div>
       )}
 
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg border border-gray-300 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
+              <tr className="bg-gray-50 border-b border-gray-300">
                 <th className="px-4 py-4 text-left">
                   <input
                     type="checkbox"
@@ -148,7 +148,7 @@ export default function DraftNoticeTable({ notices: initialNotices = [] }) {
                 notices.map((notice, index) => (
                   <tr
                     key={notice._id}
-                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                    className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-4 py-4">
                       <input
@@ -174,7 +174,7 @@ export default function DraftNoticeTable({ notices: initialNotices = [] }) {
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap">
                       <span
-                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                        className={`inline-block px-3 py-1 rounded-lg text-xs font-medium ${
                           notice.status === "published"
                             ? "bg-green-100 text-green-700"
                             : notice.status === "unpublished"

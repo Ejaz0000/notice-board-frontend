@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowBigLeft, ChevronLeft, ChevronRight, MoveLeft, MoveRight } from "lucide-react";
 
 export default function Pagination({ 
   currentPage = 1, 
@@ -92,7 +92,7 @@ export default function Pagination({
         disabled={!hasPrevPage}
         className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <MoveLeft className="w-5 h-5" />
       </button>
 
       
@@ -103,10 +103,10 @@ export default function Pagination({
           disabled={page === "..."}
           className={`min-w-10 h-10 rounded-lg font-medium transition-colors ${
             page === currentPage
-              ? "bg-blue-600 text-white"
+              ? "border border-blue-600 text-blue-600"
               : page === "..."
               ? "text-gray-400 cursor-default"
-              : "text-gray-700 hover:bg-gray-100 border border-gray-300"
+              : "text-gray-700 hover:bg-gray-100"
           }`}
         >
           {page}
@@ -119,7 +119,7 @@ export default function Pagination({
         disabled={!hasNextPage}
         className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <ChevronRight className="w-5 h-5" />
+        <MoveRight className="w-5 h-5" />
       </button>
     </div>
   );

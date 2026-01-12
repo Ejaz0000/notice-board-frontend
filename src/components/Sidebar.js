@@ -18,6 +18,8 @@ import {
   ChevronDown,
   X,
 } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "#" },
@@ -26,7 +28,7 @@ const menuItems = [
     label: "Employee",
     href: "#",
     submenu: [
-      { label: "Employee Database", href: "#" },
+      { label: "Employee Database", href: "/" },
       { label: "Add New Employee", href: "#" },
       { label: "Performance Report", href: "#" },
       { label: "Performance History", href: "#" },
@@ -43,13 +45,14 @@ const menuItems = [
     submenu: [],
   },
   { icon: FileStack, label: "Document manager", href: "#" },
-  { icon: Bell, label: "Notice Board", href: "#" },
+  { icon: Bell, label: "Notice Board", href: "/create-notice" },
   { icon: Activity, label: "Activity Log", href: "#" },
   { icon: LogOut, label: "Exit Interview", href: "#" },
   { icon: User, label: "Profile", href: "#" },
 ];
 
 export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
+  const pathname = usePathname();
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   const toggleSubmenu = (index) => {
@@ -64,13 +67,9 @@ export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
 
   const sidebarContent = (
     <aside className={`w-64 bg-white shadow-sm border-r border-gray-200 flex flex-col h-full`}>
-     
-      <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <LayoutDashboard className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-lg font-bold text-gray-900">Nebs-IT</span>
+      <div className="p-6 flex items-center">
+        <div className="flex items-center  gap-3 px-3">
+          <Image src="/assets/logo.png" alt="Logo" width="160" height="28" />
         </div>
         {isMobile && (
           <button
@@ -82,20 +81,24 @@ export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
         )}
       </div>
 
-      
       <nav className="flex-1 overflow-y-auto py-4">
-        <ul className="space-y-1 px-3">
+        <ul className="space-y-1 px-4">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             const hasSubmenu = item.submenu && item.submenu.length > 0;
             const isExpanded = expandedMenu === index;
+            const isActive = pathname === item.href;
 
             return (
               <li key={index}>
                 {hasSubmenu ? (
                   <button
                     onClick={() => toggleSubmenu(index)}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors group"
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors group ${
+                      isActive ? "bg-gray-100" : ""
+                    } ${
+                      isExpanded ? "bg-gray-100 border-r-2 border-orange-500 shadow-[0_4px_6px_rgba(0,0,0,0.1)] z-50" : ""
+                    }`}
                   >
                     <Icon className="w-5 h-5 text-gray-400 group-hover:text-gray-600" />
                     <span className="text-sm font-medium">{item.label}</span>
@@ -109,22 +112,25 @@ export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
                   <Link
                     href={item.href}
                     onClick={handleLinkClick}
-                    className="flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors group"
+                    className={`flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors group ${
+                      isActive ? "bg-gray-100 border-r-2 border-orange-500 shadow-[0_4px_6px_rgba(0,0,0,0.1)]" : ""
+                    }`}
                   >
                     <Icon className="w-5 h-5 text-gray-400 group-hover:text-gray-600" />
                     <span className="text-sm font-medium">{item.label}</span>
                   </Link>
                 )}
 
-                
                 {hasSubmenu && isExpanded && (
-                  <ul className="mt-1 ml-6 space-y-1 border-l-2 border-gray-200 pl-3">
+                  <ul className="space-y-1 bg-gray-100 pl-3 z-10 shadow-sm rounded-lg">
                     {item.submenu.map((subitem, subindex) => (
                       <li key={subindex}>
                         <Link
                           href={subitem.href}
                           onClick={handleLinkClick}
-                          className="flex items-center text-sm text-gray-600 hover:text-gray-900 py-2 hover:bg-gray-100 px-3 rounded-lg transition-colors"
+                          className={`flex items-center text-sm text-gray-600 hover:text-gray-900 py-2 hover:bg-gray-100 px-3 rounded-lg transition-colors
+                            ${pathname === subitem.href ? "text-gray-900" : ""}
+                            `}
                         >
                           {subitem.label}
                         </Link>
@@ -137,29 +143,19 @@ export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
           })}
         </ul>
       </nav>
-
-      
-      <div className="p-4 border-t border-gray-200">
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors group">
-          <LogOut className="w-5 h-5" />
-          <span className="text-sm font-medium">Logout</span>
-        </button>
-      </div>
     </aside>
   );
 
-  
   if (isMobile) {
     return (
       <>
-        
         <div
           className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           onClick={onClose}
         />
-        
+
         <div
           className={`fixed top-0 left-0 h-full z-50 transform transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
@@ -171,6 +167,5 @@ export default function Sidebar({ isMobile = false, isOpen = false, onClose }) {
     );
   }
 
-  
   return sidebarContent;
 }

@@ -76,82 +76,54 @@ export default function NoticeFilters({ currentFilters = {} }) {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6 mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
-        
-        <div>
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            Filter by:
-          </label>
-          <select
-            value={filters.department}
-            onChange={(e) => handleFilterChange("department", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Departments or individuals</option>
-            {DEPARTMENT_OPTIONS.map((dept) => (
-              <option key={dept.id} value={dept.id}>
-                {dept.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        
-        <div>
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            &nbsp;
-          </label>
-          <input
-            type="text"
-            placeholder="Employee Id or Name"
-            value={filters.search}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        
-        <div>
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            &nbsp;
-          </label>
-          <select
-            value={filters.status}
-            onChange={(e) => handleFilterChange("status", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Status</option>
-            <option value="published">Published</option>
-            <option value="unpublished">Unpublished</option>
-          </select>
-        </div>
-
+    <div className="flex items-center justify-end gap-4 mb-6 py-4 w-full">
+      <span className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by:</span>
       
-        <div>
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            &nbsp;
-          </label>
-          <input
-            type="date"
-            value={filters.publishDate}
-            onChange={(e) => handleFilterChange("publishDate", e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
+      <div className="flex flex-wrap gap-3 items-center">
+        <select
+          value={filters.department}
+          onChange={(e) => handleFilterChange("department", e.target.value)}
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 focus:outline-none  cursor-pointer hover:border-gray-400 transition-colors"
+        >
+          <option value="">Departments or individuals</option>
+          {DEPARTMENT_OPTIONS.map((dept) => (
+            <option key={dept.id} value={dept.id}>
+              {dept.name}
+            </option>
+          ))}
+        </select>
 
-        
-        <div>
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            &nbsp;
-          </label>
-          <button
-            onClick={handleResetFilters}
-            className="w-full px-3 py-2 text-blue-600 border border-blue-600 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors"
-          >
-            Reset Filters
-          </button>
-        </div>
+        <input
+          type="text"
+          placeholder="Employee Id or Name"
+          value={filters.search}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 placeholder-gray-400 focus:outline-none hover:border-gray-400 transition-colors"
+        />
+
+        <select
+          value={filters.status}
+          onChange={(e) => handleFilterChange("status", e.target.value)}
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600  cursor-pointer hover:border-gray-400 transition-colors"
+        >
+          <option value="">Status</option>
+          <option value="published">Published</option>
+          <option value="unpublished">Unpublished</option>
+        </select>
+
+        <input
+          type="date"
+          value={filters.publishDate}
+          onChange={(e) => handleFilterChange("publishDate", e.target.value)}
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600  cursor-pointer hover:border-gray-400 transition-colors"
+        />
+
+        <button
+          onClick={handleResetFilters}
+          className="px-4 py-2 text-blue-500 border border-blue-500 rounded-lg text-sm font-medium  hover:bg-blue-50 transition-colors whitespace-nowrap cursor-pointer"
+        >
+          Reset Filters
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus, FileText } from "lucide-react";
+import { Plus, FileText, PenLine } from "lucide-react";
 import NoticeFilters from "@/components/NoticeFilters";
 import NoticeTable from "@/components/NoticeTable";
 import Pagination from "@/components/Pagination";
@@ -70,13 +70,14 @@ export default async function Home({ searchParams }) {
       
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Notice Management</h1>
-          <div className="flex items-center gap-6 mt-2">
-            <span className="text-sm md:text-base text-gray-600">
-              <span className="text-green-600 font-semibold">Active Notices:</span> {pagination?.totalCount || 0}
+          <h1 className="text-lg md:text-xl font-medium text-[#232948]">Notice Management</h1>
+          <div className="flex items-center gap-4 mt-2">
+            <span className="text-sm md:text-base text-[#00A46E]">
+              <span className="text-[#00A46E]">Active Notices:</span> {pagination?.totalCount || 0}
             </span>
+            <div className="h-4 w-px bg-gray-400"></div>
             <span className="text-sm md:text-base text-gray-600">
-              <span className="text-orange-600 font-semibold">Published:</span> {activeCount}
+              <span className="text-[#FFA307]">Published: {activeCount} </span>
             </span>
           </div>
         </div>
@@ -92,9 +93,9 @@ export default async function Home({ searchParams }) {
           </Link>
           <Link
             href="/draft-notices"
-            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-orange-500 border-2 border-orange-500 rounded-lg hover:bg-orange-50 transition-colors font-medium text-sm"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 text-[#F59E0B] border-2 border-[#F59E0B] rounded-lg hover:bg-[#F59E0B] transition-colors font-medium text-sm"
           >
-            <FileText className="w-5 h-5" />
+            <PenLine className="w-5 h-5" />
             All Draft Notice
           </Link>
         </div>

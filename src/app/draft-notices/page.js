@@ -49,12 +49,12 @@ export default async function DraftNoticesPage({ searchParams }) {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/"
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="hover:bg-gray-100 rounded-sm transition-colors py-1 px-2 text-gray-600 border border-gray-600"
         >
           <ChevronLeft className="w-5 h-5 text-gray-600" />
         </Link>
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Draft Notices</h1>
+          <h1 className="text-lg md:text-xl font-medium text-[#232948]">Draft Notices</h1>
           <p className="text-sm md:text-base text-gray-600 mt-1">
             Manage your draft notices ({pagination?.totalCount || 0} total)
           </p>

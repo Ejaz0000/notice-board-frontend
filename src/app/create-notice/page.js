@@ -49,7 +49,7 @@ export default function CreateNoticePage() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(true);
   const [showDraftSuccessModal, setShowDraftSuccessModal] = useState(false);
 
   const validateForm = () => {
@@ -290,23 +290,28 @@ export default function CreateNoticePage() {
       <div className="flex items-center gap-3 mb-6">
         <button
           onClick={() => router.push("/")}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className=" hover:bg-gray-100 rounded-sm transition-colors py-1 px-2 text-gray-600 border border-gray-600"
         >
-          <ChevronLeft className="w-5 h-5 text-gray-600" />
+          <ChevronLeft className="w-5 h-5 " />
         </button>
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Create a Notice</h1>
+        <h1 className="text-lg md:text-xl font-medium text-[#232948]">Create a Notice</h1>
       </div>
 
-      <div className="bg-white rounded-lg border border-gray-200 p-4 md:p-6">
-        <p className="text-gray-700 font-medium mb-6">Please fill in the details below</p>
+      <div className="bg-white rounded-lg border border-gray-300">
+        <div className="flex items-center gap-3 py-4 px-6 mb-6 bg-[#fafafd] rounded-t-lg border-b border-gray-300">
+          <p className="text-gray-700 font-medium mb-0">Please fill in the details below</p>
+        </div>
+        
+        <div className="px-6 pb-6">
 
+          
         {apiError && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-600 text-sm">{apiError}</p>
           </div>
         )}
 
-        <div className="mb-6">
+        <div className="mb-6 bg-[#F5F6FA] p-4 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <span className="text-red-500">*</span> Target Department(s) or Individual
           </label>
@@ -314,7 +319,7 @@ export default function CreateNoticePage() {
             <div
               type="button"
               onClick={() => setShowTargetDropdown(!showTargetDropdown)}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-colors bg-blue-500 text-white"
+              className="w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-colors text-blue-500 border-gray-300"
             >
               <div className="flex flex-wrap gap-2 items-center">
                 {formData.selectedDepartments.length > 0 ? (
@@ -488,12 +493,18 @@ export default function CreateNoticePage() {
                     key={type.id}
                     type="button"
                     onClick={() => handleNoticeTypeSelect(type)}
-                    className="w-full text-left px-4 py-2.5 hover:bg-gray-50 transition-colors text-sm flex items-center justify-between"
+                    className="w-full text-left px-4 py-2.5 hover:bg-gray-50 transition-colors text-sm flex items-center gap-3"
                   >
+                    <div className={`w-4 h-4 border rounded flex items-center justify-center ${
+                      formData.noticeType === type.id 
+                        ? "bg-blue-500 border-blue-500" 
+                        : "border-gray-300"
+                    }`}>
+                      {formData.noticeType === type.id && (
+                        <Check className="w-3 h-3 text-white" />
+                      )}
+                    </div>
                     {type.name}
-                    {formData.noticeType === type.id && (
-                      <Check className="w-4 h-4 text-blue-500" />
-                    )}
                   </button>
                 ))}
               </div>
@@ -574,17 +585,17 @@ export default function CreateNoticePage() {
           )}
 
           {formData.attachments.length > 0 && (
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 flex gap-2">
               {formData.attachments.map((file, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 text-sm text-gray-600"
+                  className="flex items-center gap-2 text-sm text-gray-600 bg-[#F5F6FA] py-2 px-3 rounded-full"
                 >
                   <Paperclip className="w-4 h-4" />
                   <span>{file.name}</span>
                   <button
                     onClick={() => removeAttachment(index)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-500 hover:text-red-700 bg-white rounded-full"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -594,18 +605,23 @@ export default function CreateNoticePage() {
           )}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-3 pt-4 border-t border-gray-200">
+        
+        </div>
+      </div>
+
+      <div className="flex items-center justify-end gap-4 mt-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-3">
           <button
             onClick={handleCancel}
             disabled={isSubmitting}
-            className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition-colors font-medium text-sm disabled:opacity-50"
+            className="px-6 py-2.5 border border-gray-700 text-gray-700 rounded-full hover:bg-gray-50 transition-colors font-medium text-sm disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             onClick={handleSaveDraft}
             disabled={isSubmitting}
-            className="px-6 py-2.5 border-2 border-green-500 text-green-500 rounded-full hover:bg-green-50 transition-colors font-medium text-sm disabled:opacity-50 flex items-center justify-center gap-2"
+            className="px-6 py-2.5 border-2 border-blue-500 text-blue-500 rounded-full hover:bg-blue-50 transition-colors font-medium text-sm disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
             Save as Draft
@@ -630,7 +646,13 @@ export default function CreateNoticePage() {
         onClose={() => setShowSuccessModal(false)}
         type="success"
         title="Notice Published Successfully"
-        message={`Your notice "${formData.noticeTitle || "Notice"}" has been published and is now visible to all selected departments.`}
+        message={`Your notice "${formData.noticeTitle || "Notice"}" has been published and is now visible to ${
+          formData.targetType === "INDIVIDUAL" 
+            ? formData.employeeName || "the selected employee"
+            : formData.targetType === "ALL_DEPARTMENTS"
+            ? "all departments"
+            : formData.selectedDepartments.map(d => d.name).join(", ")
+        }.`}
         actions={[
           {
             label: "View Notice",
