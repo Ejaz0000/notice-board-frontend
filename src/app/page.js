@@ -59,11 +59,10 @@ export default async function Home({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const data = await getNotices(resolvedSearchParams);
   
-  const { notices, pagination } = data;
+  const { notices, pagination, totalDraftCount } = data;
 
  
-  const activeCount = notices?.filter(n => n.status === "published").length || 0;
-  const unpublishedCount = notices?.filter(n => n.status === "unpublished").length || 0;
+  const activeCount = notices?.length || 0;
 
   return (
     <div className="space-y-6">
@@ -77,7 +76,7 @@ export default async function Home({ searchParams }) {
             </span>
             <div className="h-4 w-px bg-gray-400"></div>
             <span className="text-sm md:text-base text-gray-600">
-              <span className="text-[#FFA307]">Published: {activeCount} </span>
+              <span className="text-[#FFA307]">Draft Notices: {totalDraftCount} </span>
             </span>
           </div>
         </div>
@@ -93,7 +92,7 @@ export default async function Home({ searchParams }) {
           </Link>
           <Link
             href="/draft-notices"
-            className="flex items-center justify-center gap-2 px-4 py-2.5 text-[#F59E0B] border-2 border-[#F59E0B] rounded-lg hover:bg-[#F59E0B] transition-colors font-medium text-sm"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 text-[#F59E0B] hover:text-white border-2 border-[#F59E0B] rounded-lg hover:bg-[#F59E0B] transition-colors font-medium text-sm"
           >
             <PenLine className="w-5 h-5" />
             All Draft Notice

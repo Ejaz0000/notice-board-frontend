@@ -265,7 +265,7 @@ export default function NoticeTable({ notices: initialNotices = [] }) {
                                     ? "bg-gray-200 cursor-not-allowed"
                                     : isPublished
                                     ? "bg-green-500"
-                                    : "bg-gray-300"
+                                    : "bg-gray-600"
                                 }`}
                               >
                                 {updatingStatus === notice._id ? (

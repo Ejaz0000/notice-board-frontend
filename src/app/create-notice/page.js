@@ -49,7 +49,7 @@ export default function CreateNoticePage() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(true);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDraftSuccessModal, setShowDraftSuccessModal] = useState(false);
 
   const validateForm = () => {
