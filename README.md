@@ -42,3 +42,8 @@ Open http://localhost:3000 in your browser.
 
 - Dev: `http://localhost:5000`
 - Prod: `https://notice-board-backend-sigma.vercel.app`
+
+
+## Live URL
+
+--- https://notice-board-frontend-two.vercel.app/
